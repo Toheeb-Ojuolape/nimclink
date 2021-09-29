@@ -76,7 +76,7 @@
 
      <v-dialog width="400px" persistent v-model="showDialog">
     <QRdialog @closeModal="closeModal"/>
-    <v-btn outlined color="white" class="mt-3 mx-auto"> <v-icon class="mr-3">mdi-lock</v-icon>SECURED BY SWIFTEND</v-btn>
+    <v-btn depressed outlined color="white" class="mt-3 mx-auto"> <v-icon class="mr-3">mdi-lock</v-icon>Approved by NIMC</v-btn>
     </v-dialog>
 
 

@@ -13,13 +13,12 @@
       v-model="loadingDialog"
     >
       <v-progress-circular
-        :size="80"
+        :size="30"
         :width="5"
         color="#000000"
         class="text-center"
         indeterminate
       ></v-progress-circular>
-      <p class="text-center">Loading widget...</p>
     </v-overlay>
   </v-app>
 </template>

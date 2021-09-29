@@ -13,7 +13,7 @@
 
     <div style="margin-top:20px">
     <v-btn @click="step = 5" x-large class="mb-3" outlined color="#010933" block>
-      <v-icon class="mr-3">mdi-bank</v-icon>  Virtual ID
+      <v-icon class="mr-3">mdi-bank</v-icon>  Virtual NIN
     </v-btn>
     </div>
 
@@ -36,8 +36,8 @@
         
         <v-window-item :value="3">
           <v-btn small depressed fab @click="step--"><v-icon>mdi-arrow-left</v-icon></v-btn>
-        <p class="mt-8 text-center">Enter your Virtual NIN </p>
-        <v-text-field @keyup="stopDisabled()" outlined type="Number" color="#010933" style="border-radius:12px" label="Virtual NIN" v-model="vNIN"/>
+        <p class="mt-8 text-center">Enter your PIN below </p>
+        <v-text-field @keyup="checkPin()" outlined type="Number" color="#010933" style="border-radius:12px" label="Enter PIN" v-model="Pin"/>
          <v-btn :disabled="disabled" @click="step++" color="#010933" style="border-radius:12px" class="mt-3 white--text" block large>
             Continue
         </v-btn>
@@ -50,12 +50,12 @@
          <v-window-item :value="4">
           <v-btn small depressed fab @click="step--"><v-icon>mdi-arrow-left</v-icon></v-btn>
           <div style="margin:auto;width:90%">
-        <div style="margin:auto;width:50%">
+        <div style="margin:auto;width:35%">
           <v-btn fab depressed style="text-align:center;margin:auto" width="100px" height="100px" color="green">
               <v-icon size="50px" color="white">mdi-check </v-icon>
           </v-btn>
           </div>
-          <p class="mt-3 text-center">Transaction Approved </p>
+          <p class="mt-3 text-center">Verified </p>
            </div>
           <v-btn @click="closeModal()" color="#010933" style="border-radius:12px" class="mt-3 white--text" block large>
             Complete
@@ -66,7 +66,7 @@
         <v-window-item :value="5">
           <v-btn small depressed fab @click="step=1"><v-icon>mdi-arrow-left</v-icon></v-btn>
         <p class="mt-8 text-center">Enter your Virtual NIN </p>
-        <v-text-field @keyup="stopDisabled()" outlined type="Number" color="#010933" style="border-radius:12px" label="Virtual NIN" v-model="vNIN"/>
+        <v-text-field @keyup="stopDisabled()" :rules="[rules.Nin]" outlined color="#010933" style="border-radius:12px" label="Virtual NIN" v-model="vNIN"/>
          <v-btn :disabled="disabled" @click="step++" color="#010933" style="border-radius:12px" class="mt-3 white--text" block large>
             Continue
         </v-btn>
@@ -78,12 +78,12 @@
          <v-window-item :value="6">
           <v-btn small depressed fab @click="step--"><v-icon>mdi-arrow-left</v-icon></v-btn>
           <div style="margin:auto;width:90%">
-        <div style="margin:auto;width:50%">
+        <div style="margin:auto;width:35%">
           <v-btn fab depressed style="text-align:center;margin:auto" width="100px" height="100px" color="green">
               <v-icon size="50px" color="white">mdi-check </v-icon>
           </v-btn>
           </div>
-          <p class="mt-3 text-center">Transaction Approved </p>
+          <p class="mt-3 text-center">Verified </p>
            </div>
           <v-btn @click="closeModal()" color="#010933" style="border-radius:12px" class="mt-3 white--text" block large>
             Complete
@@ -107,9 +107,13 @@ export default{
             value: 'https://example.com',
             size: 300,
             pin:123254,
+            Pin:"",
             vNIN:"",
             loading:true,
-            disabled:true
+            disabled:true,
+            rules: {
+            required: value => !!value || 'This field is equired.',
+        }
         }
     },
 
@@ -128,6 +132,26 @@ export default{
 
         stopDisabled(){
             if(this.vNIN != ""){
+                this.disabled = false
+                if(this.vNIN.length == 2){
+                    this.vNIN = this.vNIN+'-'
+                }if(this.vNIN.length == 6){
+                    this.vNIN = this.vNIN+'-'
+                } if(this.vNIN.length == 10){
+                    this.vNIN = this.vNIN+"-"
+                }if(this.vNIN.length == 14){
+                    this.vNIN = this.vNIN+"-"
+                }if(this.vNIN.length == 18){
+                    this.vNIN = this.vNIN+"-"
+                }
+
+            }else{
+                this.disabled = true
+            }
+        },
+
+        checkPin(){
+            if(this.Pin != ""){
                 this.disabled = false
             }else{
                 this.disabled = true
