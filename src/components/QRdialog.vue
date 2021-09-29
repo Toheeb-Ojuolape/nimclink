@@ -131,8 +131,6 @@ export default{
         },
 
         stopDisabled(){
-            if(this.vNIN != ""){
-                this.disabled = false
                 if(this.vNIN.length == 2){
                     this.vNIN = this.vNIN+'-'
                 }if(this.vNIN.length == 6){
@@ -143,11 +141,11 @@ export default{
                     this.vNIN = this.vNIN+"-"
                 }if(this.vNIN.length == 18){
                     this.vNIN = this.vNIN+"-"
+                } if(this.vNIN.length == 21){
+                    this.disabled = false
+                } else{
+                    this.disabled = true
                 }
-
-            }else{
-                this.disabled = true
-            }
         },
 
         checkPin(){
